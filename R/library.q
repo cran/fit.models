@@ -1,16 +1,15 @@
 .onAttach <- function(libname, pkgname)
 {
-  options(fit.models.registry = list())
+  assign("fmreg", list(), pos = fit.models:::fm.registry)
+  
 
   fmclass.register(fmclass = "lmfm",
                    classes = c("lm"),
-                   validation.function = NULL,
-                   attributes.function = NULL)
+                   validation.function = NULL)
                                  
   fmclass.register(fmclass = "glmfm",
                    classes = c("glm", "lm"),
-                   validation.function = NULL,
-                   attributes.function = NULL)
+                   validation.function = NULL)
 
   invisible()
 }

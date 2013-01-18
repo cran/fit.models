@@ -6,25 +6,23 @@ export(
   # Linear Model Comparison
   summary.lmfm,
   plot.lmfm,
-  lmfm2DRegPlot,
-  lmfmOverlaidQQPlot,
-  lmfmOverlaidResDenPlot,
-  lmfmResKernDenPlot,
-  lmfmResQQPlot,
-  lmfmResVsFittedPlot,
-  lmfmResVsIdxPlot,
-  lmfmRespVsFittedPlot,
-  lmfmSqrtResVsFittedPlot,
-  
-  design.distance,
-  design.distance.default,
+  qqPlot.lmfm,
+  kernDenPlot.lmfm,
+  scatterPlot.lmfm,
+  indexPlot.lmfm,
+  overlaidQQPlot.lmfm,
+  overlaidKernDenPlot.lmfm,
+  simpleRegPlot.lmfm,
+
   rmodified,
   rmodified.default,
+  leverage,
+  leverage.default,
+  leverage.lm,
 
   # Generalized Linear Model Comparison
   summary.glmfm,
-  plot.glmfm,
-  glmfmResQQPlot
+  plot.glmfm
 )
 
  ## S3 methods for fit.models ##

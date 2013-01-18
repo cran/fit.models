@@ -2,18 +2,12 @@ plot.glmfm <- function(x, which.plots = c(2, 5, 7, 6), ...)
 {
   n.models <- length(x)
 
-  dev.res.fun <- function(u)
-    residuals(u, type = "deviance")
-
-  pear.res.fun <- function(u)
-    residuals(u, type = "pearson")
-
   choices <- c("All",
-               "Deviance Residuals vs. Fitted Values",
+               "Deviance Residuals vs. Predicted Values",
                "Response vs. Fitted Values",
-               "Normal QQ Plot of Pearson Residuals",
-               "QQ Plot of Deviance Residuals",
-               "Deviance Residuals vs. Design Distance",
+               "Normal QQ Plot of Modified Pearson Residuals",
+               "Normal QQ Plot of Modified Deviance Residuals",
+               "Pearson Residuals vs. sqrt(Leverage)",
                "Scale-Location")
 
   all.plots <- 2:length(choices)
@@ -66,56 +60,58 @@ plot.glmfm <- function(x, which.plots = c(2, 5, 7, 6), ...)
 
         place.holder <- 1,
 
-        lmfmResVsFittedPlot(x,
-                            residuals.fun = dev.res.fun,
-                            xlab = "Fitted Values",
-                            ylab = "Deviance Residuals",
-                            main = "Deviance Residuals vs. Fitted Values",
-                            pch = 16,
-                            ...),
+        scatterPlot.lmfm(x,
+                         x.fun = predict,
+                         y.fun = function(u) residuals(u, type = "deviance"),
+                         xlab = "Predicted Values",
+                         ylab = "Deviance Residuals",
+                         main = "Deviance Residuals vs. Predicted Values",
+                         ...),
 
-        lmfmRespVsFittedPlot(x, 
-                             xlab = "Fitted Values",
-                             ylab = "Response",
-                             main = "Response vs. Fitted Values",
-                             pch = 16,
-                             ...),
+        scatterPlot.lmfm(x,
+                         x.fun = fitted,
+                         y.fun = function(u) model.response(model.frame(u)),
+                         xlab = "Fitted Values",
+                         ylab = "Response",
+                         main = "Response vs. Fitted Values",
+                         ...),
 
-        lmfmResQQPlot(x,
-                      residuals.fun = pear.res.fun,
-                      xlab = "Standard Normal Quantiles",
-                      ylab = "Empirical Quantiles of Pearson Residuals",
-                      main = "Normal QQ Plot of Pearson Residuals",
-                      envelope = FALSE,
-                      pch = 16,
-                      ...),
+        qqPlot.lmfm(x,
+                    fun = function(u) rmodified(u, type = "pearson"),
+                    xlab = "Standard Normal Quantiles",
+                    ylab = "Empirical Quantiles of Modified Pearson Residuals",
+                    main = "Normal QQ Plot of Modified Pearson Residuals",
+                    envelope = FALSE,
+                    ...),
 
-        glmfmResQQPlot(x,
-                      residuals.fun = dev.res.fun,
-                      xlab = "Theoretical Quantiles",
-                      ylab = "Ordered Deviance Residuals",
-                      main = "QQ Plot of Deviance Residuals",
-                      pch = 16,
-                      ...),
+        qqPlot.lmfm(x,
+                    fun = function(u) rmodified(u, type = "deviance"),
+                    xlab = "Standard Normal Quantiles",
+                    ylab = "Empirical Quantiles of Modified Deviance Residuals",
+                    main = "Normal QQ Plot of Modified Deviance Residuals",
+                    envelope = FALSE,
+                    ...),
 
-        lmfmResVsDistPlot(x,
-                          residuals.fun = dev.res.fun,
-                          xlab = "Design Distance",
-                          ylab = "Deviance Residuals",
-                          main = "Deviance Residuals vs. Design Distance",
-                          pch = 16,
-                          ...),
+        scatterPlot.lmfm(x,
+                         x.fun = function(u) sqrt(leverage(u)),
+                         y.fun = function(v) rmodified(v, type = "pearson"),
+                         xlab = expression(sqrt(plain("Leverage"))),
+                         ylab = "Modified Pearson Residuals",
+                         main = expression(paste(plain("Modified Pearson Residuals vs. "),
+                                                 sqrt(plain("Leverage")))),
+                         ...),
 
-        lmfmSqrtResVsFittedPlot(x,
-                                residuals.fun = dev.res.fun,
-                                xlab = "Fitted Values",
-                                ylab = expression(sqrt(abs(plain("Deviance Residuals")))),
-                                main = "Scale-Location",
-                                pch = 16,
-                                ...)
-      ) ## switch(pick, ..)
-    } ## end for(...)
-  } ## repeat {...}
+        scatterPlot.lmfm(x,
+                         x.fun = predict,
+                         y.fun = function(u) sqrt(abs(rmodified(u, type = "deviance"))),
+                         xlab = "Predicted Values",
+                         ylab = expression(sqrt(abs(plain("Modified Deviance Residuals")))),
+                         main = "Scale-Location",
+                         ...)
+      )
+    }
+  }
+
   invisible(x)
 }
 

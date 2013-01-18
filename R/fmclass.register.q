@@ -1,7 +1,6 @@
-fmclass.register <- function(fmclass, classes, validation.function = NULL,
-                             attributes.function = NULL)
+fmclass.register <- function(fmclass, classes, validation.function = NULL)
 {
-  fmreg <- getOption("fit.models.registry")
+  fmreg <- get("fmreg", pos = fit.models:::fm.registry)
 
   if(fmclass %in% names(fmreg)) {
     warning(fmclass, " is already registered in the fit.models registry")
@@ -10,12 +9,13 @@ fmclass.register <- function(fmclass, classes, validation.function = NULL,
 
   fmreg[[fmclass]] <- list(fmclass = fmclass,
                            classes = classes,
-                           validation.function = validation.function,
-                           attributes.function = attributes.function)
+                           validation.function = validation.function)
 
-  options(fit.models.registry = fmreg)
+  assign("fmreg", fmreg, pos = fit.models:::fm.registry)
 
   invisible()
 }
+
+
 
 

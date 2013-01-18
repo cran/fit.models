@@ -1,4 +1,4 @@
-fit.models <- function(model.list, ...)   #, attributes = NULL)
+fit.models <- function(model.list, ...)
 {
   fm.call <- match.call()
   fm.call$attributes <- NULL
@@ -12,7 +12,7 @@ fit.models <- function(model.list, ...)   #, attributes = NULL)
   if(is.null(dots.names))
     dots.names <- character(length(dots))
 
-  fmreg <- fit.models:::get.fit.models.registry()
+  fmreg <- get("fmreg", pos = fit.models:::fm.registry)
   supported.classes <- unlist(sapply(fmreg, function(u) u$classes))
 
 
@@ -37,7 +37,6 @@ fit.models <- function(model.list, ...)   #, attributes = NULL)
     empty.names <- (nchar(model.names) == 0)
     model.names[empty.names] <- object.names[empty.names]
   }
-
 
   else if(is.character(model.list) || class(model.list)[1] == "list") {
     model.list <- as.list(model.list)
