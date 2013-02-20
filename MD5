@@ -1,8 +1,8 @@
-1c47b7e3ceffd413a4ebe2cf8a03184f *DESCRIPTION
+85c3cb2a6aa53ec73bb70554c3a17e8f *DESCRIPTION
 1bebd95393c7fe7833371c4866dd475f *NAMESPACE
 af91d0dc9f549790e111e1e20c9e0fba *R/coef.glmfm.q
 81efb839e25a3547e8ce7548facfe86a *R/coef.lmfm.q
-f99336b8cd825fb39137d64f0edd445f *R/fit.models.q
+59d3c6addc371c70a9db557624ffd298 *R/fit.models.q
 08b57bd8c60f70a5425e035f5ffc5c7f *R/fit.models.registry.q
 8de3b70df5c9f1e006ab1a8bbf222f79 *R/fm.registry.q
 ac4ece4ccfc68432e6b5fdd28bc1b646 *R/fmclass.add.class.q
@@ -14,8 +14,8 @@ c3faeb62f9ef4e9a8cad5146f6b1a329 *R/leverage.q
 a0a5b25f763176878ddd8631a723be4f *R/overlaidKernDenPlot.lmfm.q
 c1be23e9524edb8d8dab87e6d0019619 *R/overlaidQQPlot.lmfm.q
 adbaedf6643352d3e0e49f2374617b0e *R/panel.addons.q
-90153826860c21b859b1dea63325b166 *R/plot.glmfm.q
-c3e240b2167310e30699ab6bb3ee615c *R/plot.lmfm.q
+10541bd686fa521d9193f82693c7502a *R/plot.glmfm.q
+a00cda1fbf3eccc7a8589bbd1083db80 *R/plot.lmfm.q
 74bb9abf1c6d0b66223bec2215f32974 *R/print.glmfm.q
 588a7b2dd6994b40be96237a6d5f2569 *R/print.lmfm.q
 3c4b16442d3900c47ccfcd08e9c567c4 *R/print.summary.glmfm.q
@@ -33,8 +33,8 @@ cfba9873eca4f8bbb7dd3a46911386c1 *man/indexPlot.lmfm.Rd
 5d5f5600217a377f3dac831da3282f08 *man/leverage.Rd
 4ee0a01e931a0a3bf19f285d20df621f *man/overlaidKernDenPlot.lmfm.Rd
 71e22a848ed466caae095e4785e23d26 *man/overlaidQQPlot.lmfm.Rd
-9804e34f4c8dee85b83a9a1d773c0acb *man/plot.glmfm.Rd
-0eddc1912e868b54fc66d5b4349c80a8 *man/plot.lmfm.Rd
+30779a64daa7b57dc3be8c196b604ba4 *man/plot.glmfm.Rd
+26ee32f7367efd03162aeca99a6fed55 *man/plot.lmfm.Rd
 fc1cb6e4922c75c045ee2ea6a244dc87 *man/qqPlot.lmfm.Rd
 33a2865e0da2b56eeb5271d439d12405 *man/rmodified.Rd
 ae10fc2692898289e5b47f90e09891b2 *man/scatterPlot.lmfm.Rd

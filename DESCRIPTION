@@ -1,6 +1,6 @@
 Package: fit.models
-Version: 0.5-8
-Date: 2013-01-18
+Version: 0.5-10
+Date: 2013-02-20
 Title: fit.models
 Description: A framework for comparing fitted models
 Author: Kjell Konis <kjell.konis@me.com>.
@@ -10,7 +10,8 @@ Suggests: MASS
 License: GPL
 Repository: CRAN
 Repository/R-Forge/Project: robust
-Repository/R-Forge/Revision: 102
-Repository/R-Forge/DateTimeStamp: 2013-01-18 22:49:56
-Date/Publication: 2013-01-21 07:48:00
-Packaged: 2013-01-18 23:15:19 UTC; rforge
+Repository/R-Forge/Revision: 110
+Repository/R-Forge/DateTimeStamp: 2013-02-20 22:04:25
+Date/Publication: 2013-02-23 08:06:07
+Packaged: 2013-02-20 23:15:39 UTC; rforge
+NeedsCompilation: no
