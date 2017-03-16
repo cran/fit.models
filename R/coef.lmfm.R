@@ -1,3 +1,6 @@
+#' @importFrom stats coef
+
+#' @export
 coef.lmfm <- function(object, ...)
 {
   n.models <- length(object)

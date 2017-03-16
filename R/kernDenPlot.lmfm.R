@@ -1,3 +1,20 @@
+#' Comparison Kernel Density Estimate Plot
+#' 
+#' Produces side-by-side kernel density estimate plots.
+#' 
+#' 
+#' @param x an lmfm object.
+#' @param fun a function to extract the appropriate quantity from \code{x}.
+#' @param \dots additional arguments are passed to
+#' \code{\link[lattice]{xyplot}}.
+#' @return the \code{trellis} object is invisibly returned.
+#' @keywords hplot
+
+
+#' @importFrom lattice densityplot panel.densityplot panel.abline strip.default
+
+
+#' @export kernDenPlot.lmfm
 kernDenPlot.lmfm <- function(x, fun, ...)
 {
   n.models <- length(x)
@@ -21,6 +38,7 @@ kernDenPlot.lmfm <- function(x, fun, ...)
                    n = 256,
                    bw = "SJ",
                    plot.points = FALSE,
+                   ref = TRUE,
                    panel = panel.special,
                    strip = function(...) strip.default(..., style = 1),
                    layout = c(n.models, 1, 1),

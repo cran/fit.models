@@ -1,3 +1,26 @@
+#' Scatter Plot with Overlaid Fits
+#' 
+#' Produces a scatter plot of the data with overlaid fits.
+#' 
+#' 
+#' @param x an lmfm object.
+#' @param lwd.reg a vector with length equal to the number of fitted models in
+#' \code{x} specifying the line widths used in the plot. See
+#' \code{\link[graphics]{par}} for possible values.
+#' @param col.reg a vector with length equal to the number of fitted models in
+#' \code{x} specifying the line colors used in the plot. See
+#' \code{\link[graphics]{par}} for possible values.
+#' @param \dots additional arguments are passed to
+#' \code{\link[lattice]{xyplot}}.
+#' @return the \code{trellis} object is invisibly returned.
+#' @keywords hplot
+
+
+#' @importFrom lattice xyplot panel.xyplot panel.abline simpleKey
+#' @importFrom stats as.formula formula
+
+
+#' @export simpleRegPlot.lmfm
 simpleRegPlot.lmfm <- function(x, lwd.reg, col.reg, ...) 
 {
   n.models <- length(x)

@@ -1,8 +1,7 @@
 
-R version 2.15.2 (2012-10-26) -- "Trick or Treat"
-Copyright (C) 2012 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
-Platform: x86_64-apple-darwin12.2.0/x86_64 (64-bit)
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin16.3.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -19,9 +18,14 @@ Type 'q()' to quit R.
 > options(warn = 2)
 > 
 > library(fit.models)
-Loading required package: lattice
-> require(MASS)
-Loading required package: MASS
+
+Attaching package: 'fit.models'
+
+The following object is masked from 'package:stats':
+
+    mahalanobis
+
+> library(MASS)
 > 
 > ################################################################################
 > # Test models with differenct formulas
@@ -72,7 +76,7 @@ Coefficients:
    outcome3: trt:                                         
              out:  -0.2930     0.1927  -1.520   0.1285    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Null deviance:
   trt: 10.58 on 8 degrees of freedom
@@ -105,7 +109,8 @@ null device
           1 
 > 
 > rm(fm1, fm1.sum)
-> unlink("fm1.pdf")
+> file.remove("fm1.pdf")
+[1] TRUE
 > 
 > 
 > ################################################################################
@@ -160,7 +165,7 @@ Coefficients:
     TreatFT:    offset:   4.5631     2.1333   2.139 0.036035 *  
              no.offset:   4.2578     2.2996   1.852 0.068376 .  
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Null deviance:
      offset: 4525 on 71 degrees of freedom
@@ -195,7 +200,8 @@ null device
           1 
 > 
 > rm(fm2, fm2.sum)
-> unlink("fm2.pdf")
+> file.remove("fm2.pdf")
+[1] TRUE
 > 
 > 
 > ################################################################################
@@ -246,7 +252,7 @@ Coefficients:
     TreatFT: m1:   4.1408     2.0463   2.024   0.0473 *  
              m2:   4.7976     2.2262   2.155   0.0347 *  
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Null deviance:
   m1: 4431 on 66 degrees of freedom
@@ -281,7 +287,8 @@ null device
           1 
 > 
 > rm(fm3, fm3.sum)
-> unlink("fm3.pdf")
+> file.remove("fm3.pdf")
+[1] TRUE
 > 
 > 
 > ################################################################################
@@ -290,4 +297,4 @@ null device
 > 
 > proc.time()
    user  system elapsed 
-  1.555   0.075   1.688 
+  1.212   0.049   1.256 

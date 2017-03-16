@@ -1,3 +1,34 @@
+#' Compaison QQ Plot
+#' 
+#' Produces side-by-side QQ plots.  An optional simulated confidence envelope
+#' can be included in each plot.
+#' 
+#' 
+#' @param x an lmfm object.
+#' @param fun a function to extract the appropriate quantity from \code{x}.
+#' @param envelope a logical value.  If \code{TRUE} a \code{level} confidence
+#' envelope is simulated for each QQ plot.
+#' @param half.normal a logical value.  If \code{TRUE} the plot is drawn using
+#' the absolute values.
+#' @param n.samples a positive integer value giving the number of samples to
+#' compute in the simulation of the confidence envelope.
+#' @param level a numeric value between 0 and 1 specifying the confidence level
+#' for the envelope.
+#' @param id.n a non-negative integer value specifying the number of extreme
+#' points to identify.
+#' @param qqline a logical value.  If \code{TRUE}, a QQ line is included in the
+#' plot.
+#' @param \dots additional arguments are passed to
+#' \code{\link[lattice]{xyplot}}.
+#' @return the \code{trellis} object is invisibly returned.
+#' @keywords hplot
+
+
+#' @importFrom lattice xyplot panel.xyplot panel.abline llines strip.default
+#' @importFrom stats rnorm quantile qnorm qqnorm
+
+
+#' @export qqPlot.lmfm
 qqPlot.lmfm <- function(x, fun, envelope = TRUE, half.normal = FALSE,
                         n.samples = 250, level = .95, id.n = 3, qqline = TRUE,
                         ...)
@@ -91,10 +122,10 @@ qqPlot.lmfm <- function(x, fun, envelope = TRUE, half.normal = FALSE,
         v <- quantile(y[!is.na(y)], c(0.25, 0.75))
         slope <- diff(v) / diff(u)
         int <- v[1] - slope * u[1]
-        panel.abline(int, slope)
+        panel.abline(int, slope, ...)
       }
 
-      panel.addons(x[dat.idx], y[dat.idx], id.n = id.n, ...)
+      panel.addons(x[dat.idx], y[dat.idx], id.n = id.n)
 
       dat.idx <- ((length(x)/3)+1):(2*length(x)/3)
 
@@ -122,14 +153,14 @@ qqPlot.lmfm <- function(x, fun, envelope = TRUE, half.normal = FALSE,
 
       panel.xyplot(x[dat.idx], y[dat.idx], ...)
 
-      panel.addons(x[dat.idx], y[dat.idx], id.n = id.n, ...)
+      panel.addons(x[dat.idx], y[dat.idx], id.n = id.n)
 
       if(qqline) {
         u <- quantile(x[!is.na(x)], c(0.25, 0.75))
         v <- quantile(y[!is.na(y)], c(0.25, 0.75))
         slope <- diff(v) / diff(u)
         int <- v[1] - slope * u[1]
-        panel.abline(int, slope)
+        panel.abline(int, slope, ...)
       }
 
       dat.idx <- ((length(x)/3)+1):(2*length(x)/3)
@@ -150,14 +181,14 @@ qqPlot.lmfm <- function(x, fun, envelope = TRUE, half.normal = FALSE,
 
     panel.special <- function(x, y, id.n, qqline, ...) {
       panel.xyplot(x, y, ...)
-      panel.addons(x, y, id.n = id.n, ...)
+      panel.addons(x, y, id.n = id.n)
 
       if(qqline) {
         u <- quantile(x[!is.na(x)], c(0.25, 0.75))
         v <- quantile(y[!is.na(y)], c(0.25, 0.75))
         slope <- diff(v) / diff(u)
         int <- v[1] - slope * u[1]
-        panel.abline(int, slope)
+        panel.abline(int, slope, ...)
       }
 
       invisible()

@@ -1,3 +1,20 @@
+#' Overlaid Normal QQ Plot
+#' 
+#' Produces an overlaid normal QQ plot.
+#' 
+#' 
+#' @param x an lmfm object.
+#' @param fun a function to extract the appropriate quantity from \code{x}.
+#' @param \dots additional arguments are passed to
+#' \code{\link[lattice]{qqmath}}.
+#' @return the \code{trellis} object is invisibly returned.
+#' @keywords hplot
+
+
+#' @importFrom lattice qqmath strip.default
+
+
+#' @export
 overlaidQQPlot.lmfm <- function(x, fun, ...)
 {
   n.models <- length(x)

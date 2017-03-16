@@ -1,3 +1,20 @@
+#' Overlaid Kernel Density Estimate Plot
+#' 
+#' Produces an overlaid kernel density plot.
+#' 
+#' 
+#' @param x an lmfm object.
+#' @param fun a function to extract the appropriate quantity from \code{x}.
+#' @param \dots additional arguments are passed to
+#' \code{\link[lattice]{densityplot}}.
+#' @return the \code{trellis} object is invisibly returned.
+#' @keywords hplot
+
+
+#' @importFrom lattice densityplot strip.default
+
+
+#' @export overlaidKernDenPlot.lmfm
 overlaidKernDenPlot.lmfm <- function(x, fun, ...)
 {
   n.models <- length(x)
