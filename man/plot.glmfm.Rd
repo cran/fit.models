@@ -4,15 +4,14 @@
 \alias{plot.glmfm}
 \title{Comparison Diagnostic Plots for Generalized Linear Models}
 \usage{
-\method{plot}{glmfm}(x, which.plots = c(2, 5, 7, 6), ...)
+\method{plot}{glmfm}(x, which.plots = 1:6, ...)
 }
 \arguments{
 \item{x}{a \code{glmfm} object.}
 
-\item{which.plots}{either \code{"ask"}, \code{"all"}, or a vector of integer
-values specifying which plots to draw.  In the latter case, use the plot
-numbers given in the description above (or in the "ask" menu).  Any other
-values will be silently ignored.}
+\item{which.plots}{either \code{"ask"} (character string) or an integer
+vector specifying which plots to draw. In the later case, the plot numbers
+are given above.}
 
 \item{\dots}{other parameters to be passed through to plotting functions.}
 }
@@ -22,13 +21,12 @@ values will be silently ignored.}
 \description{
 Produces a set of comparison diagnostic plots.  The plot options are
 \enumerate{
-  \item (not used)
   \item Deviance Residuals vs. Predicted Values,
   \item Response vs. Fitted Values,
   \item Normal QQ Plot of Pearson Residuals,
   \item Normal QQ Plot of Deviance Residuals,
   \item Pearson Residuals vs. Mahalanobis Distance,
-  \item Scale-Location.
+  \item Sqrt Deviance Residuals vs. Predicted Values.
 }
 }
 \section{Side Effects}{
@@ -52,8 +50,8 @@ plot(fm)
 
 }
 \seealso{
-\code{\link{qqPlot.lmfm}} for 4 and 5 and
-\code{\link{scatterPlot.lmfm}} for the others.
+\code{\link{sideBySideQQPlot}} for 4 and 5 and
+\code{\link{sideBySideScatterPlot}} for the others.
 }
 \keyword{hplot}
 \keyword{methods}

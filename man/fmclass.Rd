@@ -3,7 +3,6 @@
 \name{fmclass.register}
 \alias{fmclass.register}
 \alias{fmclass.add.class}
-\alias{fmclass.add.class}
 \title{Register Comparable Functions}
 \usage{
 fmclass.register(fmclass, classes, validation.function = NULL)

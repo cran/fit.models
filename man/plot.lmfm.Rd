@@ -4,15 +4,14 @@
 \alias{plot.lmfm}
 \title{Comparison Diagnostic Plots for Linear Regression Models}
 \usage{
-\method{plot}{lmfm}(x, which.plots = c(5, 2, 6, 4), ...)
+\method{plot}{lmfm}(x, which.plots = 1:10, ...)
 }
 \arguments{
 \item{x}{an \code{lmfm} object.}
 
-\item{which.plots}{either \code{"ask"}, \code{"all"}, or a vector of integer
-values specifying which plots to draw.  In the latter case, use the plot
-numbers given in the description above (or in the "ask" menu).  Any other
-values will be silently ignored.}
+\item{which.plots}{either \code{"ask"} (character string) or an integer
+vector specifying which plots to draw. In the later case, the plot numbers
+are given above.}
 
 \item{\dots}{additional parameters are ignored.}
 }
@@ -22,12 +21,11 @@ values will be silently ignored.}
 \description{
 Produces a set of comparison diagnostic plots.  The plot options are
 \enumerate{
-  \item (not used)
   \item Normal QQ Plot of Residuals,
   \item Kernel Density Estimate of Residuals,
   \item Residuals vs. Mahalanobis Distance,
   \item Residuals vs. Fitted Values,
-  \item Scale-Location,
+  \item Sqrt Residuals vs. Fitted Values,
   \item Response vs. Fitted Values,
   \item Residuals vs. Index (Time),
   \item Overlaid Normal QQ Plot of Residuals,
@@ -47,12 +45,13 @@ fm <- fit.models(stack.clean, stack.lm)
 plot(fm)
 }
 \seealso{
-See \code{\link{qqPlot.lmfm}} for 2,
-\code{\link{kernDenPlot.lmfm}} for 3, \code{\link{indexPlot.lmfm}} for
-8, \code{\link{overlaidQQPlot.lmfm}} for 9,
-\code{\link{overlaidKernDenPlot.lmfm}} for 10,
-\code{\link{simpleRegPlot.lmfm}} for 11, and
-\code{\link{scatterPlot.lmfm}} for the others.
+See \code{\link{sideBySideQQPlot}} for 2,
+\code{\link{sideBySideKernelDensityPlot}} for 3,
+\code{\link{sideBySideIndexPlot}} for 8,
+\code{\link{overlaidQQPlot}} for 9,
+\code{\link{overlaidKernelDensityPlot}} for 10,
+\code{\link{overlaidSimpleRegressionPlot}} for 11, and
+\code{\link{sideBySideScatterPlot}} for the others.
 }
 \keyword{hplot}
 \keyword{methods}

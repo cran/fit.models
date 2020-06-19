@@ -2,8 +2,8 @@
 
 #' @export
 print.summary.lmfm <- function(x, digits = max(3, getOption("digits") - 3),
-                               signif.stars = getOption("show.signif.stars"),
-                               ...)
+                                        signif.stars = getOption("show.signif.stars"),
+                                        ...)
 {
   n.models <- length(x)
   mod.names <- names(x)

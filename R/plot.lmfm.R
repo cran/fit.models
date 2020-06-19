@@ -2,12 +2,11 @@
 #' 
 #' Produces a set of comparison diagnostic plots.  The plot options are
 #' \enumerate{
-#'   \item (not used)
 #'   \item Normal QQ Plot of Residuals,
 #'   \item Kernel Density Estimate of Residuals,
 #'   \item Residuals vs. Mahalanobis Distance,
 #'   \item Residuals vs. Fitted Values,
-#'   \item Scale-Location,
+#'   \item Sqrt Residuals vs. Fitted Values,
 #'   \item Response vs. Fitted Values,
 #'   \item Residuals vs. Index (Time),
 #'   \item Overlaid Normal QQ Plot of Residuals,
@@ -16,19 +15,19 @@
 #'   }
 #' 
 #' @param x an \code{lmfm} object.
-#' @param which.plots either \code{"ask"}, \code{"all"}, or a vector of integer
-#' values specifying which plots to draw.  In the latter case, use the plot
-#' numbers given in the description above (or in the "ask" menu).  Any other
-#' values will be silently ignored.
+#' @param which.plots either \code{"ask"} (character string) or an integer
+#' vector specifying which plots to draw. In the later case, the plot numbers
+#' are given above.
 #' @param \dots additional parameters are ignored.
 #' @return \code{x} is invisibly returned.
 #' @section Side Effects: The selected plots are drawn on a graphics device.
-#' @seealso See \code{\link{qqPlot.lmfm}} for 2,
-#' \code{\link{kernDenPlot.lmfm}} for 3, \code{\link{indexPlot.lmfm}} for
-#' 8, \code{\link{overlaidQQPlot.lmfm}} for 9,
-#' \code{\link{overlaidKernDenPlot.lmfm}} for 10,
-#' \code{\link{simpleRegPlot.lmfm}} for 11, and
-#' \code{\link{scatterPlot.lmfm}} for the others.
+#' @seealso See \code{\link{sideBySideQQPlot}} for 2,
+#' \code{\link{sideBySideKernelDensityPlot}} for 3,
+#' \code{\link{sideBySideIndexPlot}} for 8,
+#' \code{\link{overlaidQQPlot}} for 9,
+#' \code{\link{overlaidKernelDensityPlot}} for 10,
+#' \code{\link{overlaidSimpleRegressionPlot}} for 11, and
+#' \code{\link{sideBySideScatterPlot}} for the others.
 #' @keywords hplot methods
 #' @examples
 #' data(stackloss)
@@ -55,52 +54,45 @@
 #' @importFrom utils menu
 
 
-#' @export plot.lmfm
-#' @S3method plot lmfm
-plot.lmfm <- function(x, which.plots = c(5, 2, 6, 4), ...)
+#' @export 
+plot.lmfm <- function(x, which.plots = 1:10, ...)
 {
-  choices <- c("All",
-    "Normal QQ Plot of Residuals", 
-    "Kernel Density Estimate of Residuals",
-    "Residuals vs. Mahalanobis Distance",
-    "Residuals vs. Fitted Values", 
-    "Scale-Location", 
-    "Response vs. Fitted Values", 
-    "Residuals vs. Index (Time)", 
-    "Overlaid Normal QQ Plot of Residuals", 
-    "Overlaid Kernel Density Estimate of Residuals")
+  if(length(which.plots) == 1 && casefold(which.plots) == "all")
+    which.plots <- 1:10
+
+  choices <- c("Normal QQ Plot of Residuals", 
+               "Kernel Density Estimate of Residuals",
+               "Residuals vs. Mahalanobis Distance",
+               "Residuals vs. Fitted Values", 
+               "Sqrt Residuals vs. Fitted Values", 
+               "Response vs. Fitted Values", 
+               "Residuals vs. Index (Time)", 
+               "Overlaid Normal QQ Plot of Residuals", 
+               "Overlaid Kernel Density Estimate of Residuals")
 
   is.simple.reg <- function(m)
     all(attr(m$terms, "dataClasses") == "numeric") && dim(model.frame(m))[2] == 2
 
-  if(all(sapply(x, is.simple.reg)))
+  if(all(sapply(x, is.simple.reg))) {
     choices <- c(choices, "Scatter Plot with Overlaid Fit(s)")
+    all.plots <- 1:10
+  }
+  else
+    all.plots <- 1:9
 
-  all.plots <- 2:length(choices)
-
-  tmenu <- paste("plot:", choices)
+  if(length(which.plots) == 0)
+    return(invisible(x))
 
   if(is.numeric(which.plots)) {
-    if(!all(which.plots %in% all.plots))
-      stop(sQuote("which"), " must be in 2:", length(choices))
-
-    if(length(which.plots) == 0)
-      return(invisible(x))
+    which.plots <- intersect(which.plots, all.plots)
 
     if(length(which.plots) > 1) {
       par.ask <- par(ask = TRUE)
       on.exit(par(ask = par.ask))
     }
+    which.plots <- c(which.plots, 0)
 
     ask <- FALSE
-    which.plots <- c(which.plots + 1, 1)
-  }
-
-  else if(which.plots == "all") {
-    which.plots <- c(all.plots + 1, 1)
-    ask <- FALSE
-    par.ask <- par(ask = TRUE)
-    on.exit(par(ask = par.ask))
   }
 
   else
@@ -113,95 +105,83 @@ plot.lmfm <- function(x, which.plots = c(5, 2, 6, 4), ...)
     colors <- 1:n.models
 
   repeat {
-    if(ask) {
-      which.plots <- menu(tmenu,
-        title = "\nMake plot selections (or 0 to exit):\n")
+    if(ask)
+      which.plots <- menu(choices, title = "\nMake plot selections (or 0 to exit):")
 
-      if(any(which.plots == 1)) {
-        which.plots <- c(all.plots, 0)
-        par.ask <- par(ask = TRUE)
-        on.exit(par(ask = par.ask))
-      }
-
-      which.plots <- which.plots + 1
-    }
-
-    for(pick in which.plots) {
+    for(pick in (1 + which.plots)) {
       switch(pick,
         return(invisible(x)),
 
-        place.holder <- 1,
-
-        qqPlot.lmfm(x,
-                    fun = residuals,
-                    main = expression(plain("Normal QQ Plot of Residuals")),
-                    xlab = expression(plain("Standard Normal Quantiles")),
-                    ylab = expression(plain("Empirical Quantiles of Residuals")),
-                    pch = 16),
-
-        kernDenPlot.lmfm(x,
+        sideBySideQQPlot(x,
                          fun = residuals,
-                         main = expression(plain("Kernel Density Estimate of Residuals")),
-                         xlab = expression(plain("Residuals")),
-                         ylab = expression(plain("Density"))),
-
-        scatterPlot.lmfm(x,
-                         x.fun = function(u) sqrt(designMD(u)),
-                         y.fun = residuals,
-                         xlab = expression(plain("Mahalanobis Distance")),
-                         ylab = expression(plain("Residuals")),
-                         main = expression(plain("Residuals vs. Mahalanobis Distance")),
+                         main = expression(plain("Normal QQ Plot of Residuals")),
+                         xlab = expression(plain("Standard Normal Quantiles")),
+                         ylab = expression(plain("Empirical Quantiles of Residuals")),
                          pch = 16),
 
-        scatterPlot.lmfm(x,
-                         x.fun = fitted,
-                         y.fun = residuals,
-                         main = expression(plain("Residuals vs. Fitted Values")),
-                         xlab = expression(plain("Fitted Values")),
-                         ylab = expression(plain("Residuals")),
-                         pch = 16),
+        sideBySideKernelDensityPlot(x,
+                                    fun = residuals,
+                                    main = expression(plain("Kernel Density Estimate of Residuals")),
+                                    xlab = expression(plain("Residuals")),
+                                    ylab = expression(plain("Density"))),
 
-        scatterPlot.lmfm(x,
-                         x.fun = fitted,
-                         y.fun = function(u) sqrt(abs(residuals(u))),
-                         main = expression(plain("Scale-Location")),
-                         xlab = expression(plain("Fitted Values")),
-                         ylab = expression(sqrt(abs(plain("Residuals")))),
-                         pch = 16),
+        sideBySideScatterPlot(x,
+                              x.fun = function(u) sqrt(designMD(u)),
+                              y.fun = residuals,
+                              xlab = expression(plain("Mahalanobis Distance")),
+                              ylab = expression(plain("Residuals")),
+                              main = expression(plain("Residuals vs. Mahalanobis Distance")),
+                              pch = 16),
 
-        scatterPlot.lmfm(x,
-                         x.fun = fitted,
-                         y.fun = function(u) model.response(model.frame(u)),
-                         main = expression(plain("Response vs. Fitted Values")),
-                         xlab = expression(plain("Fitted Values")),
-                         ylab = expression(plain("Response")),
-                         pch = 16),
+        sideBySideScatterPlot(x,
+                              x.fun = fitted,
+                              y.fun = residuals,
+                              main = expression(plain("Residuals vs. Fitted Values")),
+                              xlab = expression(plain("Fitted Values")),
+                              ylab = expression(plain("Residuals")),
+                              pch = 16),
 
-        indexPlot.lmfm(x,
-                       fun = residuals,
-                       main = expression(plain("Residuals vs. Index (Time)")),
-                       xlab = expression(plain("Index (Time)")),
-                       ylab = expression(plain("Residuals")),
-                       pch = 16),
+        sideBySideScatterPlot(x,
+                              x.fun = fitted,
+                              y.fun = function(u) sqrt(abs(residuals(u))),
+                              main = expression(paste(sqrt(abs(plain("Residuals"))), plain(" vs. Fitted Values"))),
+                              xlab = expression(plain("Fitted Values")),
+                              ylab = expression(sqrt(abs(plain("Residuals")))),
+                              pch = 16),
 
-        overlaidQQPlot.lmfm(x,
+        sideBySideScatterPlot(x,
+                              x.fun = fitted,
+                              y.fun = function(u) model.response(model.frame(u)),
+                              main = expression(plain("Response vs. Fitted Values")),
+                              xlab = expression(plain("Fitted Values")),
+                              ylab = expression(plain("Response")),
+                              pch = 16),
+
+        sideBySideIndexPlot(x,
                             fun = residuals,
-                            main = expression(plain("Normal QQ Plot of Residuals")),
-                            xlab = expression(plain("Standard Normal Quantiles")),
-                            ylab = expression(plain("Empirical Quantiles of Residuals")),
+                            main = expression(plain("Residuals vs. Index (Time)")),
+                            xlab = expression(plain("Index (Time)")),
+                            ylab = expression(plain("Residuals")),
                             pch = 16),
 
-        overlaidKernDenPlot.lmfm(x,
-                                 fun = residuals,
-                                 main = expression(plain("Kernel Density Estimate of Residuals")),
-                                 xlab = expression(plain("Residuals")),
-                                 ylab = expression(plain("Density"))),
+        overlaidQQPlot(x,
+                       fun = residuals,
+                       main = expression(plain("Normal QQ Plot of Residuals")),
+                       xlab = expression(plain("Standard Normal Quantiles")),
+                       ylab = expression(plain("Empirical Quantiles of Residuals")),
+                       pch = 16),
 
-        simpleRegPlot.lmfm(x,
-                           main = expression(plain("Scatter Plot with Overlaid Fits")),
-                           lwd.reg = n.models:1,
-                           col.reg = colors,
-                           pch = 16)
+        overlaidKernelDensityPlot(x,
+                                  fun = residuals,
+                                  main = expression(plain("Kernel Density Estimate of Residuals")),
+                                  xlab = expression(plain("Residuals")),
+                                  ylab = expression(plain("Density"))),
+
+        overlaidSimpleRegressionPlot(x,
+                                     main = expression(plain("Scatter Plot with Overlaid Fits")),
+                                     lwd.reg = n.models:1,
+                                     col.reg = colors,
+                                     pch = 16)
       )
     }
   }

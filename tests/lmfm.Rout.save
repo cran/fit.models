@@ -1,7 +1,7 @@
 
-R version 3.3.3 (2017-03-06) -- "Another Canoe"
-Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin16.4.0 (64-bit)
+R Under development (unstable) (2020-06-15 r78700) -- "Unsuffered Consequences"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -24,6 +24,7 @@ Type 'q()' to quit R.
 > 
 > # add rlm to the lmfm fit.models class
 > fmclass.add.class("lmfm", "rlm")
+rlm is already registered in the fit.models registry
 > 
 > ################################################################################
 > # Test original syntax
@@ -90,6 +91,7 @@ Acid.Conc. -0.90       -0.34     0.00
 
 > 
 > pdf("fm1.pdf")
+> plot(fm1, 1)
 > plot(fm1, 2)
 > plot(fm1, 3)
 > plot(fm1, 4)
@@ -98,7 +100,6 @@ Acid.Conc. -0.90       -0.34     0.00
 > plot(fm1, 7)
 > plot(fm1, 8)
 > plot(fm1, 9)
-> plot(fm1, 10)
 > dev.off()
 null device 
           1 
@@ -178,6 +179,7 @@ Acid.Conc. -0.90       -0.34     0.00
 
 > 
 > pdf("fm2.pdf")
+> plot(fm2, 1)
 > plot(fm2, 2)
 > plot(fm2, 3)
 > plot(fm2, 4)
@@ -186,7 +188,6 @@ Acid.Conc. -0.90       -0.34     0.00
 > plot(fm2, 7)
 > plot(fm2, 8)
 > plot(fm2, 9)
-> plot(fm2, 10)
 > dev.off()
 null device 
           1 
@@ -262,6 +263,7 @@ Acid.Conc. -0.91       -0.39
 
 > 
 > pdf("fm3.pdf")
+> plot(fm3, 1)
 > plot(fm3, 2)
 > plot(fm3, 3)
 > plot(fm3, 4)
@@ -270,7 +272,6 @@ Acid.Conc. -0.91       -0.39
 > plot(fm3, 7)
 > plot(fm3, 8)
 > plot(fm3, 9)
-> plot(fm3, 10)
 > dev.off()
 null device 
           1 
@@ -348,6 +349,7 @@ Acid.Conc. -0.91       -0.39
 
 > 
 > pdf("fm4.pdf")
+> plot(fm4, 1)
 > plot(fm4, 2)
 > plot(fm4, 3)
 > plot(fm4, 4)
@@ -356,7 +358,6 @@ Acid.Conc. -0.91       -0.39
 > plot(fm4, 7)
 > plot(fm4, 8)
 > plot(fm4, 9)
-> plot(fm4, 10)
 > dev.off()
 null device 
           1 
@@ -421,6 +422,7 @@ Acid.Conc. -1.00
 
 > 
 > pdf("fm5.pdf")
+> plot(fm5, 1)
 > plot(fm5, 2)
 > plot(fm5, 3)
 > plot(fm5, 4)
@@ -430,7 +432,6 @@ Acid.Conc. -1.00
 > plot(fm5, 8)
 > plot(fm5, 9)
 > plot(fm5, 10)
-> plot(fm5, 11)
 > dev.off()
 null device 
           1 
@@ -446,4 +447,4 @@ null device
 > 
 > proc.time()
    user  system elapsed 
-  2.774   0.077   2.845 
+  4.624   0.241   5.293 

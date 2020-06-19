@@ -1,14 +1,17 @@
-.onAttach <- function(libname, pkgname)
+.onLoad <- function(libname, pkgname)
 {
-  assign("fmreg", list(), envir = e)
-  
+  e$fmreg <- list()
 
   fmclass.register(fmclass = "lmfm",
-                   classes = c("lm"),
+                   classes = c("lm", "rlm"),
                    validation.function = NULL)
                                  
   fmclass.register(fmclass = "glmfm",
-                   classes = c("glm", "lm"),
+                   classes = c("glm"),
+                   validation.function = NULL)
+
+  fmclass.register(fmclass = "covfm",
+                   classes = c("covClassic", "covRob"),
                    validation.function = NULL)
 
   invisible()
