@@ -4,12 +4,16 @@
 \alias{summary.covfm}
 \title{Summary Method}
 \usage{
-\method{summary}{covfm}(object, ...)
+\method{summary}{covfm}(object, corr = FALSE, ...)
 }
 \arguments{
 \item{object}{a \dQuote{covfm} object.}
 
-\item{...}{additional arguments for the summary method.}
+\item{corr}{a logical value passed as an attribute to the \code{print}
+method. When \code{TRUE}, correlations are compared in the
+textual output.}
+
+\item{\dots}{additional arguments for the summary method.}
 }
 \description{
 Generic summary method for \dQuote{covfm} objects.

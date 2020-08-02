@@ -2,12 +2,14 @@
 % Please edit documentation in R/covfm.R
 \name{center}
 \alias{center}
-\title{Extract Location Estimate for a Fitted Model Object}
+\title{Calculate Location Estimate for a Fitted Model Object}
 \usage{
 center(object, ...)
 }
 \arguments{
-\item{object}{a fitted model object.}
+\item{object}{a fitted model object, typically.  Sometimes
+also a \code{summary()} object of such a fitted
+model.}
 
 \item{\dots}{additional arguments for method functions.}
 }
